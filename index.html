@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Premium Fitness Content Generator</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     * {
       margin: 0;
@@ -80,127 +79,6 @@
       color: rgba(255, 255, 255, 0.6);
       font-size: 18px;
       line-height: 1.6;
-    }
-
-    .user-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      padding: 15px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .user-info {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
-    }
-
-    .user-email {
-      color: #667eea;
-      font-weight: 600;
-    }
-
-    .btn {
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 14px;
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .profile-actions {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    .btn-load, .btn-clear {
-      flex: 1;
-      padding: 12px;
-      font-size: 14px;
-    }
-
-    .btn-load {
-      background: rgba(102, 126, 234, 0.2);
-      border: 1px solid rgba(102, 126, 234, 0.5);
-      color: #a8b8ff;
-    }
-
-    .btn-clear {
-      background: rgba(255, 77, 109, 0.2);
-      border: 1px solid rgba(255, 77, 109, 0.5);
-      color: #ffb3c1;
-    }
-
-    .saved-indicator {
-      display: none;
-      padding: 12px 20px;
-      background: rgba(72, 187, 120, 0.2);
-      border: 1px solid rgba(72, 187, 120, 0.5);
-      border-radius: 10px;
-      color: #68d391;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    .login-container {
-      max-width: 450px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .login-box {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 40px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 30px;
-    }
-
-    .login-box h2 {
-      color: #ffffff;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    .login-box p {
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-
-    .btn-login {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-bottom: 15px;
-    }
-
-    .btn-login:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
     }
 
     .section-header {
@@ -476,10 +354,6 @@
       color: #fc8181;
     }
 
-    .hidden {
-      display: none;
-    }
-
     @media (max-width: 768px) {
       .container {
         padding: 30px 25px;
@@ -491,42 +365,11 @@
   </style>
 </head>
 <body>
-  <div id="loginScreen" class="container login-container">
-    <div class="header">
-      <div class="logo">🏋️</div>
-      <h1>Premium Content Generator</h1>
-      <p>Professional social media marketing for elite fitness brands</p>
-    </div>
-
-    <div class="login-box">
-      <h2>Member Access</h2>
-      <p>Log in to access your saved profiles and generate premium content instantly.</p>
-      <button class="btn-login" onclick="netlifyIdentity.open()">Login / Sign Up</button>
-      <p class="helper-text">New members: Click above to create your account</p>
-    </div>
-  </div>
-
-  <div id="mainForm" class="container hidden">
+  <div class="container">
     <div class="header">
       <div class="logo">🏋️</div>
       <h1>Premium Content Generator</h1>
       <p>Professional social media marketing tailored to your fitness brand</p>
-    </div>
-
-    <div class="user-bar">
-      <div class="user-info">
-        Logged in as: <span class="user-email" id="userEmail"></span>
-      </div>
-      <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
-    </div>
-
-    <div class="profile-actions">
-      <button class="btn btn-load" onclick="loadSavedProfile()">📥 Load My Last Profile</button>
-      <button class="btn btn-clear" onclick="clearForm()">🗑️ Clear Form</button>
-    </div>
-
-    <div id="savedIndicator" class="saved-indicator">
-      ✓ Loaded your saved profile from last submission
     </div>
 
     <form name="fitness-content-pro" id="contentForm">
@@ -663,12 +506,12 @@
               <option value="5">5 posts</option>
             </select>
             <label>Font Style</label>
-<select name="instagram_font">
-  <option value="regular">Regular (Default)</option>
-  <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
-  <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-  <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
-</select>
+            <select name="instagram_font">
+              <option value="regular">Regular (Default)</option>
+              <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
+              <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+              <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
+            </select>
             <label>Instagram Handle</label>
             <input type="text" name="instagram_handle" placeholder="@yourbrand">
             <div class="image-toggle">
@@ -692,12 +535,12 @@
               <option value="3">3 posts</option>
             </select>
             <label>Font Style</label>
-<select name="facebook_font">
-  <option value="regular">Regular (Default)</option>
-  <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
-  <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-  <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
-</select>
+            <select name="facebook_font">
+              <option value="regular">Regular (Default)</option>
+              <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
+              <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+              <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
+            </select>
             <label>Facebook Page</label>
             <input type="text" name="facebook_handle" placeholder="facebook.com/yourbrand">
             <div class="image-toggle">
@@ -721,12 +564,12 @@
               <option value="3">3 posts</option>
             </select>
             <label>Font Style</label>
-<select name="twitter_font">
-  <option value="regular">Regular (Default)</option>
-  <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
-  <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-  <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
-</select>
+            <select name="twitter_font">
+              <option value="regular">Regular (Default)</option>
+              <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
+              <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+              <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
+            </select>
             <label>Handle</label>
             <input type="text" name="twitter_handle" placeholder="@yourbrand">
             <div class="image-toggle">
@@ -750,12 +593,12 @@
               <option value="3">3 posts</option>
             </select>
             <label>Font Style</label>
-<select name="tiktok_font">
-  <option value="regular">Regular (Default)</option>
-  <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
-  <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-  <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
-</select>
+            <select name="tiktok_font">
+              <option value="regular">Regular (Default)</option>
+              <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
+              <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+              <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
+            </select>
             <label>Handle</label>
             <input type="text" name="tiktok_handle" placeholder="@yourbrand">
             <div class="image-toggle">
@@ -779,12 +622,12 @@
               <option value="3">3 posts</option>
             </select>
             <label>Font Style</label>
-<select name="linkedin_font">
-  <option value="regular">Regular (Default)</option>
-  <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
-  <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-  <option value="italic">𝘐𝘵𝘢𝘭𝘪𝘤 𝗦𝗮𝗻𝘀</option>
-</select>
+            <select name="linkedin_font">
+              <option value="regular">Regular (Default)</option>
+              <option value="bold">𝗕𝗼𝗹𝗱 𝗦𝗮𝗻𝘀</option>
+              <option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+              <option value="italic">𝘐𝘵𝘢𝘏𝘪𝘤 𝗦𝗮𝗻𝘀</option>
+            </select>
             <label>Profile/Page</label>
             <input type="text" name="linkedin_handle" placeholder="linkedin.com/company/yourbrand">
             <div class="image-toggle">
@@ -819,107 +662,6 @@
   </div>
 
   <script>
-    netlifyIdentity.on('init', user => {
-      if (user) {
-        showMainForm(user);
-      }
-    });
-
-    netlifyIdentity.on('login', user => {
-      showMainForm(user);
-      netlifyIdentity.close();
-    });
-
-    netlifyIdentity.on('logout', () => {
-      document.getElementById('loginScreen').classList.remove('hidden');
-      document.getElementById('mainForm').classList.add('hidden');
-    });
-
-    function showMainForm(user) {
-      document.getElementById('loginScreen').classList.add('hidden');
-      document.getElementById('mainForm').classList.remove('hidden');
-      document.getElementById('userEmail').textContent = user.email;
-      
-      loadSavedProfile();
-    }
-
-    function handleLogout() {
-      if (confirm('Are you sure you want to logout?')) {
-        netlifyIdentity.logout();
-      }
-    }
-
-    function saveProfile(data) {
-      const user = netlifyIdentity.currentUser();
-      if (!user) return;
-      
-      const profileKey = `fitness_profile_${user.id}`;
-      localStorage.setItem(profileKey, JSON.stringify(data));
-    }
-
-    function loadSavedProfile() {
-      const user = netlifyIdentity.currentUser();
-      if (!user) return;
-      
-      const profileKey = `fitness_profile_${user.id}`;
-      const savedData = localStorage.getItem(profileKey);
-      
-      if (!savedData) {
-        return;
-      }
-      
-      const data = JSON.parse(savedData);
-      
-      Object.keys(data).forEach(key => {
-        const input = document.querySelector(`[name="${key}"]`);
-        if (input && input.type !== 'checkbox') {
-          input.value = data[key] || '';
-        }
-      });
-      
-      if (data.cta_types && Array.isArray(data.cta_types)) {
-        data.cta_types.forEach(cta => {
-          const checkbox = document.querySelector(`[name="cta_types"][value="${cta}"]`);
-          if (checkbox) {
-            checkbox.checked = true;
-            checkbox.closest('.cta-option').classList.add('selected');
-          }
-        });
-      }
-      
-      if (data.platforms && Array.isArray(data.platforms)) {
-        data.platforms.forEach(platform => {
-          const card = document.querySelector(`[data-platform="${platform.name}"]`);
-          if (card) {
-            const checkbox = card.querySelector('input[type="checkbox"]');
-            checkbox.checked = true;
-            card.classList.add('active');
-            
-            const postsSelect = card.querySelector(`[name="${platform.name}_posts"]`);
-            const handleInput = card.querySelector(`[name="${platform.name}_handle"]`);
-            const imagesCheckbox = card.querySelector(`[name="${platform.name}_images"]`);
-            
-            if (postsSelect) postsSelect.value = platform.posts;
-            if (handleInput) handleInput.value = platform.handle;
-            if (imagesCheckbox) imagesCheckbox.checked = platform.includeImages !== false;
-          }
-        });
-      }
-      
-      document.getElementById('savedIndicator').style.display = 'block';
-      setTimeout(() => {
-        document.getElementById('savedIndicator').style.display = 'none';
-      }, 4000);
-    }
-
-    function clearForm() {
-      if (confirm('Clear all form data?')) {
-        document.getElementById('contentForm').reset();
-        document.querySelectorAll('.platform-card').forEach(card => card.classList.remove('active'));
-        document.querySelectorAll('.cta-option').forEach(option => option.classList.remove('selected'));
-      }
-    }
-
     document.querySelectorAll('.platform-card').forEach(card => {
       const checkbox = card.querySelector('input[type="checkbox"]');
       card.addEventListener('click', (e) => {
@@ -973,13 +715,14 @@
       selectedPlatforms.forEach(card => {
         const platform = card.dataset.platform;
         const includeImages = formData.get(`${platform}_images`) === 'on';
-platforms.push({
-  name: platform,
-  posts: parseInt(formData.get(`${platform}_posts`)) || 2,
-  handle: formData.get(`${platform}_handle`) || '',
-  includeImages: includeImages,
-  font: formData.get(`${platform}_font`) || 'regular'
-});
+        platforms.push({
+          name: platform,
+          posts: parseInt(formData.get(`${platform}_posts`)) || 2,
+          handle: formData.get(`${platform}_handle`) || '',
+          includeImages: includeImages,
+          font: formData.get(`${platform}_font`) || 'regular'
+        });
+      });
       
       const ctas = Array.from(selectedCTAs).map(option => 
         option.querySelector('input').value
@@ -1001,8 +744,6 @@ platforms.push({
         platforms: platforms,
         special_instructions: formData.get('special_instructions') || ''
       };
-      
-      saveProfile(webhookData);
       
       submitBtn.disabled = true;
       submitBtn.textContent = '⚡ Generating Content...';
