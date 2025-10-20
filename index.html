@@ -973,14 +973,13 @@
       selectedPlatforms.forEach(card => {
         const platform = card.dataset.platform;
         const includeImages = formData.get(`${platform}_images`) === 'on';
-        
-        platforms.push({
-          name: platform,
-          posts: parseInt(formData.get(`${platform}_posts`)) || 2,
-          handle: formData.get(`${platform}_handle`) || '',
-          includeImages: includeImages
-        });
-      });
+platforms.push({
+  name: platform,
+  posts: parseInt(formData.get(`${platform}_posts`)) || 2,
+  handle: formData.get(`${platform}_handle`) || '',
+  includeImages: includeImages,
+  font: formData.get(`${platform}_font`) || 'regular'
+});
       
       const ctas = Array.from(selectedCTAs).map(option => 
         option.querySelector('input').value
