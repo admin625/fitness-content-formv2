@@ -77,6 +77,7 @@
         
         input[type="text"],
         input[type="email"],
+        input[type="url"],
         select,
         textarea {
             width: 100%;
@@ -98,6 +99,126 @@
         textarea {
             resize: vertical;
             min-height: 80px;
+        }
+        
+        /* Platform Cards */
+        .platform-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #f8f9ff;
+        }
+        
+        .platform-card.disabled {
+            opacity: 0.5;
+            background: #f5f5f5;
+        }
+        
+        .platform-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .platform-header input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .platform-header label {
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .platform-controls {
+            margin-left: 36px;
+            display: none;
+        }
+        
+        .platform-controls.active {
+            display: block;
+        }
+        
+        .control-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .control-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .control-item label {
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        .control-item input[type="number"] {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 28px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(22px);
         }
         
         .checkbox-group {
@@ -190,6 +311,12 @@
             font-size: 60px;
             margin-bottom: 20px;
         }
+
+        @media (max-width: 600px) {
+            .control-row {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -261,37 +388,227 @@
                     <label>Fitness Focus: <span class="required">*</span></label>
                     <input type="text" name="fitness_focus" required placeholder="e.g., HIIT, Yoga, Strength Training, CrossFit">
                 </div>
-                
-                <!-- SECTION 3: PLATFORMS -->
-                <div class="section-header">Social Media Platforms</div>
-                
+
                 <div class="form-group">
-                    <label>Select platforms (choose at least one): <span class="required">*</span></label>
+                    <label>Primary Call-to-Action: <span class="required">*</span></label>
+                    <select name="cta_type" required id="cta_type">
+                        <option value="">What do you want your audience to do?</option>
+                        <option value="book_consultation">Book a free consultation</option>
+                        <option value="sign_up_trial">Sign up for a trial class</option>
+                        <option value="dm_details">DM for more details</option>
+                        <option value="link_bio">Click link in bio</option>
+                        <option value="comment">Comment below</option>
+                        <option value="visit_website">Visit my website</option>
+                        <option value="tag_friend">Tag a friend</option>
+                        <option value="custom">Custom CTA (specify below)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="custom-cta-group" style="display: none;">
+                    <label>Custom Call-to-Action:</label>
+                    <input type="text" name="custom_cta" placeholder="Enter your custom call-to-action">
+                </div>
+                
+                <!-- SECTION 3: CONTENT PREFERENCES -->
+                <div class="section-header">Content Preferences</div>
+
+                <div class="form-group">
+                    <label>Content themes to include (select all that apply):</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" name="platforms" value="instagram" id="instagram">
-                            <label for="instagram">Instagram</label>
+                            <input type="checkbox" name="content_themes" value="workout_tips" id="workout_tips">
+                            <label for="workout_tips">Workout Tips</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="platforms" value="facebook" id="facebook">
-                            <label for="facebook">Facebook</label>
+                            <input type="checkbox" name="content_themes" value="nutrition" id="nutrition">
+                            <label for="nutrition">Nutrition Advice</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="platforms" value="twitter" id="twitter">
-                            <label for="twitter">Twitter/X</label>
+                            <input type="checkbox" name="content_themes" value="motivation" id="motivation">
+                            <label for="motivation">Motivation</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="platforms" value="tiktok" id="tiktok">
-                            <label for="tiktok">TikTok</label>
+                            <input type="checkbox" name="content_themes" value="transformation" id="transformation">
+                            <label for="transformation">Transformation Stories</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="platforms" value="linkedin" id="linkedin">
-                            <label for="linkedin">LinkedIn</label>
+                            <input type="checkbox" name="content_themes" value="lifestyle" id="lifestyle">
+                            <label for="lifestyle">Lifestyle/Balance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="content_themes" value="technique" id="technique">
+                            <label for="technique">Form & Technique</label>
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label>Caption style preference:</label>
+                    <select name="caption_style">
+                        <option value="mixed">Mixed (variety of styles)</option>
+                        <option value="short_punchy">Short & punchy (1-2 sentences)</option>
+                        <option value="medium">Medium length (3-5 sentences)</option>
+                        <option value="long_storytelling">Longer storytelling format</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Hashtag preference:</label>
+                    <select name="hashtag_preference">
+                        <option value="moderate">Moderate (5-10 relevant hashtags)</option>
+                        <option value="minimal">Minimal (3-5 targeted hashtags)</option>
+                        <option value="maximum">Maximum (15-20 hashtags)</option>
+                        <option value="none">No hashtags</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Your go-to hashtags (Optional):</label>
+                    <input type="text" name="custom_hashtags" placeholder="e.g., #YourBrandName #YourCityFit #CustomTag">
+                    <div class="helper-text">These will be included in every post</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Topics or approaches to AVOID (Optional):</label>
+                    <textarea name="avoid_topics" rows="2" placeholder="e.g., Weight loss focus, competitive comparisons, political topics"></textarea>
+                    <div class="helper-text">Help us stay aligned with your values</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Any current promotions or events to mention? (Optional):</label>
+                    <textarea name="promotions" rows="2" placeholder="e.g., New Year special: 50% off first month, Open House this Saturday"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Link to your Instagram/social profile (Optional):</label>
+                    <input type="url" name="social_profile" placeholder="https://instagram.com/yourusername">
+                    <div class="helper-text">Helps AI understand your existing content style</div>
+                </div>
                 
-                <!-- SECTION 4: CONTACT -->
+                <!-- SECTION 4: PLATFORMS -->
+                <div class="section-header">Social Media Platforms & Post Settings</div>
+
+                <p style="color: #666; margin-bottom: 20px; font-size: 14px;">
+                    Select platforms, customize post quantity (1-5 per platform), and toggle image requests.
+                </p>
+                
+                <!-- Instagram -->
+                <div class="platform-card" id="instagram-card">
+                    <div class="platform-header">
+                        <input type="checkbox" id="instagram-enabled" onchange="handlePlatformToggle('instagram')">
+                        <label for="instagram-enabled">📸 Instagram</label>
+                    </div>
+                    <div class="platform-controls" id="instagram-controls">
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label>Number of Posts:</label>
+                                <input type="number" name="instagram_posts" min="1" max="5" value="3">
+                            </div>
+                            <div class="control-item">
+                                <label>Include Images:</label>
+                                <div class="toggle-switch">
+                                    <label class="switch">
+                                        <input type="checkbox" name="instagram_images" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span style="font-size: 13px; color: #555;">Yes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facebook -->
+                <div class="platform-card" id="facebook-card">
+                    <div class="platform-header">
+                        <input type="checkbox" id="facebook-enabled" onchange="handlePlatformToggle('facebook')">
+                        <label for="facebook-enabled">👥 Facebook</label>
+                    </div>
+                    <div class="platform-controls" id="facebook-controls">
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label>Number of Posts:</label>
+                                <input type="number" name="facebook_posts" min="1" max="5" value="3">
+                            </div>
+                            <div class="control-item">
+                                <label>Include Images:</label>
+                                <div class="toggle-switch">
+                                    <label class="switch">
+                                        <input type="checkbox" name="facebook_images" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span style="font-size: 13px; color: #555;">Yes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="platform-card" id="linkedin-card">
+                    <div class="platform-header">
+                        <input type="checkbox" id="linkedin-enabled" onchange="handlePlatformToggle('linkedin')">
+                        <label for="linkedin-enabled">💼 LinkedIn</label>
+                    </div>
+                    <div class="platform-controls" id="linkedin-controls">
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label>Number of Posts:</label>
+                                <input type="number" name="linkedin_posts" min="1" max="5" value="2">
+                            </div>
+                            <div class="control-item">
+                                <label>Include Images:</label>
+                                <div class="toggle-switch">
+                                    <label class="switch">
+                                        <input type="checkbox" name="linkedin_images" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span style="font-size: 13px; color: #555;">Yes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Twitter/X -->
+                <div class="platform-card" id="twitter-card">
+                    <div class="platform-header">
+                        <input type="checkbox" id="twitter-enabled" onchange="handlePlatformToggle('twitter')">
+                        <label for="twitter-enabled">𝕏 Twitter/X</label>
+                    </div>
+                    <div class="platform-controls" id="twitter-controls">
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label>Number of Posts:</label>
+                                <input type="number" name="twitter_posts" min="1" max="5" value="5">
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #888; margin-top: 8px;">
+                            Note: Twitter/X posts are text-only
+                        </p>
+                    </div>
+                </div>
+
+                <!-- TikTok -->
+                <div class="platform-card" id="tiktok-card">
+                    <div class="platform-header">
+                        <input type="checkbox" id="tiktok-enabled" onchange="handlePlatformToggle('tiktok')">
+                        <label for="tiktok-enabled">🎵 TikTok</label>
+                    </div>
+                    <div class="platform-controls" id="tiktok-controls">
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label>Number of Post Ideas:</label>
+                                <input type="number" name="tiktok_posts" min="1" max="5" value="3">
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #888; margin-top: 8px;">
+                            Note: TikTok requires video content - we'll provide script ideas
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- SECTION 5: CONTACT -->
                 <div class="section-header">Delivery</div>
                 
                 <div class="form-group">
@@ -318,12 +635,42 @@
     </div>
     
     <script>
+        // Handle platform toggle
+        function handlePlatformToggle(platform) {
+            const checkbox = document.getElementById(`${platform}-enabled`);
+            const controls = document.getElementById(`${platform}-controls`);
+            const card = document.getElementById(`${platform}-card`);
+            
+            if (checkbox.checked) {
+                controls.classList.add('active');
+                card.classList.remove('disabled');
+            } else {
+                controls.classList.remove('active');
+                card.classList.add('disabled');
+            }
+        }
+
+        // Handle custom CTA display
+        document.getElementById('cta_type').addEventListener('change', function() {
+            const customCtaGroup = document.getElementById('custom-cta-group');
+            if (this.value === 'custom') {
+                customCtaGroup.style.display = 'block';
+            } else {
+                customCtaGroup.style.display = 'none';
+            }
+        });
+
+        // Form submission
         document.getElementById('contentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Validate at least one platform selected
-            const platforms = document.querySelectorAll('input[name="platforms"]:checked');
-            if (platforms.length === 0) {
+            const platforms = ['instagram', 'facebook', 'linkedin', 'twitter', 'tiktok'];
+            const selectedPlatforms = platforms.filter(p => 
+                document.getElementById(`${p}-enabled`).checked
+            );
+            
+            if (selectedPlatforms.length === 0) {
                 alert('Please select at least one social media platform');
                 return;
             }
@@ -331,14 +678,29 @@
             // Collect form data
             const formData = new FormData(e.target);
             
-            // Build platforms array with image preferences
+            // Build platforms array with detailed settings
             const platformsArray = [];
-            platforms.forEach(platform => {
-                platformsArray.push({
-                    name: platform.value,
-                    includeImages: true
-                });
+            selectedPlatforms.forEach(platform => {
+                const platformData = {
+                    name: platform,
+                    postCount: parseInt(document.querySelector(`input[name="${platform}_posts"]`).value) || 3
+                };
+                
+                // Add image preference for platforms that support it
+                if (['instagram', 'facebook', 'linkedin'].includes(platform)) {
+                    platformData.includeImages = document.querySelector(`input[name="${platform}_images"]`).checked;
+                }
+                
+                platformsArray.push(platformData);
             });
+
+            // Collect content themes
+            const contentThemes = Array.from(document.querySelectorAll('input[name="content_themes"]:checked'))
+                .map(cb => cb.value);
+
+            // Handle CTA
+            const ctaType = formData.get('cta_type');
+            const cta = ctaType === 'custom' ? formData.get('custom_cta') : ctaType;
             
             const data = {
                 client_type: formData.get('client_type'),
@@ -348,9 +710,19 @@
                 signature_style: formData.get('signature_style') || '',
                 target_audience: formData.get('target_audience'),
                 fitness_focus: formData.get('fitness_focus'),
+                cta: cta,
+                content_themes: contentThemes,
+                caption_style: formData.get('caption_style'),
+                hashtag_preference: formData.get('hashtag_preference'),
+                custom_hashtags: formData.get('custom_hashtags') || '',
+                avoid_topics: formData.get('avoid_topics') || '',
+                promotions: formData.get('promotions') || '',
+                social_profile: formData.get('social_profile') || '',
                 email: formData.get('email'),
                 platforms: platformsArray
             };
+            
+            console.log('Submitting data:', data); // For debugging
             
             // Show loading
             document.getElementById('form-container').style.display = 'none';
@@ -358,7 +730,7 @@
             
             try {
                 // REPLACE THIS URL WITH YOUR N8N WEBHOOK URL
-                const response = await fetch('Yhttps://jmac.app.n8n.cloud/webhook/f0e6fab8-0d20-4d95-9122-fef8fcb9f8dc', {
+                const response = await fetch('https://jmac.app.n8n.cloud/webhook/f0e6fab8-0d20-4d95-9122-fef8fcb9f8dc', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -373,6 +745,7 @@
                     throw new Error('Submission failed');
                 }
             } catch (error) {
+                console.error('Submission error:', error);
                 alert('Something went wrong. Please try again or contact support.');
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('form-container').style.display = 'block';
